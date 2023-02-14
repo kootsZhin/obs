@@ -11,9 +11,10 @@ fn main() -> eyre::Result<()> {
         .default(0)
         .interact_opt()?;
 
+    // TODO fix the error type
     match selection {
         Some(index) => match index.try_into() {
-            Ok(cmd::CmdOption::Goto) => Ok(()),
+            Ok(cmd::CmdOption::Goto) => cmd::goto(),
             Ok(cmd::CmdOption::Open) => Ok(()),
             Err(_) => Ok(()),
         },
