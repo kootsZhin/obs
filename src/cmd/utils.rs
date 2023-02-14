@@ -5,7 +5,7 @@ use std::fs::read_to_string;
 
 #[derive(Debug, Deserialize)]
 pub struct ObsJsonVault {
-    open: bool,
+    open: Option<bool>,
     path: String,
     ts: usize,
 }

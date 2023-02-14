@@ -15,7 +15,7 @@ fn main() -> eyre::Result<()> {
     match selection {
         Some(index) => match index.try_into() {
             Ok(cmd::CmdOption::Goto) => cmd::goto(),
-            Ok(cmd::CmdOption::Open) => Ok(()),
+            Ok(cmd::CmdOption::Open) => cmd::open(),
             Err(_) => Ok(()),
         },
         None => Ok(()),
