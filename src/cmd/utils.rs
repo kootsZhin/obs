@@ -1,4 +1,5 @@
 use dialoguer::{theme::ColorfulTheme, Select};
+use home::home_dir;
 use serde::Deserialize;
 use serde_json::from_str;
 use std::collections::HashMap;
@@ -20,12 +21,17 @@ pub struct Vault {
 impl Vault {
     pub fn get_vaults() -> Vec<Vault> {
         let mut res: Vec<Vault> = Vec::new();
+        let cfg_path = match home::home_dir() {
+            Some(path) => format!(
+                "{path}/Library/Application Support/obsidian/obsidian.json",
+                path = path.to_string_lossy()
+            ),
+            None => panic!("Impossible to get your home dir!"),
+        };
 
         // TODO default obsidian config folder for mac, need to
-        // (1) get user name to support arbitray mac user
-        // (2) get os type to change file path (less urgent)
-        let data = read_to_string("/Users/k/Library/Application Support/obsidian/obsidian.json")
-            .expect("Unable to read file");
+        // get os type to change file path (less urgent)
+        let data = read_to_string(cfg_path).expect("Unable to read file");
 
         let json: HashMap<String, HashMap<String, ObsJsonVault>> =
             from_str(&data).expect("JSON was not well-formatted");
