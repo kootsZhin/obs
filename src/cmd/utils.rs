@@ -18,10 +18,12 @@ pub struct Vault {
     pub path: String,
 }
 
+// TODO this part is a bit chunky
+// TODO arrage the vaults by ts
 impl Vault {
     pub fn get_vaults() -> Vec<Vault> {
         let mut res: Vec<Vault> = Vec::new();
-        let cfg_path = match home::home_dir() {
+        let cfg_path = match home_dir() {
             Some(path) => format!(
                 "{path}/Library/Application Support/obsidian/obsidian.json",
                 path = path.to_string_lossy()
@@ -58,30 +60,16 @@ impl Vault {
         vault_names
     }
 
-    pub fn get_vault_paths() -> Vec<String> {
+    pub fn get_vault_path(vault_name: &String) -> eyre::Result<String> {
         let vaults = Vault::get_vaults();
-        let vault_paths: Vec<String> = vaults
-            .iter()
-            .map(|Vault { ref path, .. }| String::from(path))
-            .clone()
+        let vault_selected: Vec<Vault> = vaults
+            .into_iter()
+            .filter(|x| x.name == vault_name.to_string())
             .collect();
-
-        vault_paths
+        Ok(vault_selected[0].path.clone())
     }
 
-    pub fn get_vault_name(index: usize) -> String {
-        let vault_names = Vault::get_vault_names();
-
-        vault_names[index].to_string()
-    }
-
-    pub fn get_vault_path(index: usize) -> String {
-        let vault_paths = Vault::get_vault_paths();
-
-        vault_paths[index].to_string()
-    }
-
-    pub fn select_vault() -> eyre::Result<Option<usize>> {
+    pub fn select_vault() -> eyre::Result<String> {
         let vault_names = Vault::get_vault_names();
 
         let selection: Option<usize> = Select::with_theme(&ColorfulTheme::default())
@@ -90,6 +78,9 @@ impl Vault {
             .default(0)
             .interact_opt()?;
 
-        Ok(selection)
+        match selection {
+            Some(index) => Ok(vault_names[index].clone()),
+            None => panic!("Error when selecting vault"),
+        }
     }
 }
