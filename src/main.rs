@@ -1,8 +1,10 @@
 use dialoguer::{theme::ColorfulTheme, Select};
+use eyre::Result;
 
 pub mod cmd;
+pub mod utils;
 
-fn main() -> eyre::Result<()> {
+fn main() -> Result<()> {
     let cmd_options = cmd::CmdOption::to_string_vec();
 
     let selection = Select::with_theme(&ColorfulTheme::default())
@@ -11,13 +13,12 @@ fn main() -> eyre::Result<()> {
         .default(0)
         .interact_opt()?;
 
-    // TODO fix the error type
     match selection {
         Some(index) => match index.try_into() {
             Ok(cmd::CmdOption::Goto) => cmd::goto(),
             Ok(cmd::CmdOption::Open) => cmd::open(),
-            Err(_) => Ok(()),
+            _ => Ok(()),
         },
-        None => Ok(()),
+        _ => Ok(()),
     }
 }

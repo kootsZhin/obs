@@ -19,7 +19,7 @@ impl fmt::Display for CmdOption {
 // Reference: https://stackoverflow.com/questions/28028854/how-do-i-match-enum-values-with-an-integer/57578431#57578431
 impl TryFrom<usize> for CmdOption {
     type Error = ();
-    fn try_from(v: usize) -> Result<Self, Self::Error> {
+    fn try_from(v: usize) -> Result<Self, ()> {
         match v {
             x if x == CmdOption::Goto as usize => Ok(CmdOption::Goto),
             x if x == CmdOption::Open as usize => Ok(CmdOption::Open),

@@ -1,4 +1,5 @@
 use dialoguer::{theme::ColorfulTheme, Select};
+use eyre::Result;
 use home::home_dir;
 use serde::Deserialize;
 use serde_json::from_str;
@@ -18,25 +19,20 @@ pub struct Vault {
     pub path: String,
 }
 
-// TODO this part is a bit chunky
-// TODO arrage the vaults by ts
 impl Vault {
-    pub fn get_vaults() -> Vec<Vault> {
+    pub fn get_vaults() -> Result<Vec<Vault>> {
         let mut res: Vec<Vault> = Vec::new();
-        let cfg_path = match home_dir() {
-            Some(path) => format!(
-                "{path}/Library/Application Support/obsidian/obsidian.json",
-                path = path.to_string_lossy()
-            ),
-            None => panic!("Impossible to get your home dir!"),
-        };
 
-        // TODO default obsidian config folder for mac, need to
-        // get os type to change file path (less urgent)
-        let data = read_to_string(cfg_path).expect("Unable to read file");
+        let path = home_dir().unwrap();
+        let cfg_path = format!(
+            "{path}/Library/Application Support/obsidian/obsidian.json",
+            path = path.to_string_lossy()
+        );
 
-        let json: HashMap<String, HashMap<String, ObsJsonVault>> =
-            from_str(&data).expect("JSON was not well-formatted");
+        // TODO only working with mac default for now
+        let data = read_to_string(cfg_path).unwrap();
+
+        let json: HashMap<String, HashMap<String, ObsJsonVault>> = from_str(&data).unwrap();
 
         for (_, value) in json.get("vaults").unwrap() {
             let path = value.path.clone();
@@ -46,11 +42,12 @@ impl Vault {
                 path: path,
             })
         }
-        res
+
+        Ok(res)
     }
 
     pub fn get_vault_names() -> Vec<String> {
-        let vaults = Vault::get_vaults();
+        let vaults = Vault::get_vaults().unwrap();
         let vault_names: Vec<String> = vaults
             .iter()
             .map(|Vault { ref name, .. }| String::from(name))
@@ -60,27 +57,26 @@ impl Vault {
         vault_names
     }
 
-    pub fn get_vault_path(vault_name: &String) -> eyre::Result<String> {
-        let vaults = Vault::get_vaults();
+    pub fn get_vault_path(vault_name: &String) -> String {
+        let vaults = Vault::get_vaults().unwrap();
         let vault_selected: Vec<Vault> = vaults
             .into_iter()
             .filter(|x| x.name == vault_name.to_string())
             .collect();
-        Ok(vault_selected[0].path.clone())
+
+        vault_selected[0].path.clone()
     }
 
-    pub fn select_vault() -> eyre::Result<String> {
+    pub fn select_vault() -> Result<String> {
         let vault_names = Vault::get_vault_names();
-
         let selection: Option<usize> = Select::with_theme(&ColorfulTheme::default())
             .with_prompt("Open vault:")
             .items(&vault_names)
             .default(0)
             .interact_opt()?;
 
-        match selection {
-            Some(index) => Ok(vault_names[index].clone()),
-            None => panic!("Error when selecting vault"),
-        }
+        let res = vault_names[selection.unwrap()].clone();
+
+        Ok(res)
     }
 }
