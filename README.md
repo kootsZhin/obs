@@ -10,7 +10,11 @@
 
 ## Note 🚧
 
-- `obs` is under active development and currently only support MacOS, please open up an issue if there's any error while using the tool
+- `obs` is under active development and currently only support MacOS, please report any issue while using!
+
+<p align="center">
+  <img src="assets/demo-1.gif" alt="animated" />
+</p>
 
 ## Usage
 
@@ -18,6 +22,10 @@
 - `obs --goto <GOTO>` : `cd` to the directory of vault `<GOTO>`
 - `obs --open <OPEN>` : open the vault `<OPEN>` in Obsidian
 - `obs --help` : show help
+
+<p align="center">
+  <img src="assets/demo-2.gif" alt="animated" />
+</p>
 
 ## Getting Started
 
