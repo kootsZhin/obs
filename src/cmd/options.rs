@@ -1,35 +1,38 @@
 use std::convert::TryFrom;
 use std::fmt;
 
-pub enum CmdOption {
+pub enum ObsOption {
     Goto,
     Open,
+    // for entering selection mode
+    Select,
 }
 
 // Reference: https://kerkour.com/rust-enum-to-string
-impl fmt::Display for CmdOption {
+impl fmt::Display for ObsOption {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            CmdOption::Goto => write!(f, "goto"),
-            CmdOption::Open => write!(f, "open"),
+            ObsOption::Goto => write!(f, "goto"),
+            ObsOption::Open => write!(f, "open"),
+            ObsOption::Select => write!(f, "select"),
         }
     }
 }
 
 // Reference: https://stackoverflow.com/questions/28028854/how-do-i-match-enum-values-with-an-integer/57578431#57578431
-impl TryFrom<usize> for CmdOption {
+impl TryFrom<usize> for ObsOption {
     type Error = ();
     fn try_from(v: usize) -> Result<Self, ()> {
         match v {
-            x if x == CmdOption::Goto as usize => Ok(CmdOption::Goto),
-            x if x == CmdOption::Open as usize => Ok(CmdOption::Open),
+            x if x == ObsOption::Goto as usize => Ok(ObsOption::Goto),
+            x if x == ObsOption::Open as usize => Ok(ObsOption::Open),
             _ => Err(()),
         }
     }
 }
 
-impl CmdOption {
+impl ObsOption {
     pub fn to_string_vec() -> Vec<String> {
-        vec![CmdOption::Goto.to_string(), CmdOption::Open.to_string()]
+        vec![ObsOption::Goto.to_string(), ObsOption::Open.to_string()]
     }
 }
