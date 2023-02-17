@@ -4,6 +4,8 @@ use std::fmt;
 pub enum ObsOption {
     Goto,
     Open,
+    // for entering selection mode
+    Select,
 }
 
 // Reference: https://kerkour.com/rust-enum-to-string
@@ -12,6 +14,7 @@ impl fmt::Display for ObsOption {
         match self {
             ObsOption::Goto => write!(f, "goto"),
             ObsOption::Open => write!(f, "open"),
+            ObsOption::Select => write!(f, "select"),
         }
     }
 }

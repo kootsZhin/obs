@@ -19,28 +19,26 @@ fn main() -> Result<()> {
         std::process::exit(1);
     });
 
-    // TODO this part is chunky
-    // TODO lots of error introduced after adding flag
-    if args.goto.is_some() {
-        args_goto(args.goto.unwrap())
-    } else if args.open.is_some() {
-        args_open(args.open.unwrap())
-    } else {
-        let obs_opt = ObsOption::to_string_vec();
+    match args.into_opt() {
+        ObsOption::Goto => args_goto(args.goto.unwrap()),
+        ObsOption::Open => args_open(args.open.unwrap()),
+        ObsOption::Select => {
+            let obs_opt = ObsOption::to_string_vec();
 
-        let selection = Select::with_theme(&ColorfulTheme::default())
-            .with_prompt("Hello there! Welcome to obs:")
-            .items(&obs_opt)
-            .default(0)
-            .interact_opt()?;
+            let selection = Select::with_theme(&ColorfulTheme::default())
+                .with_prompt("Hello there! Welcome to obs:")
+                .items(&obs_opt)
+                .default(0)
+                .interact_opt()?;
 
-        match selection {
-            Some(index) => match index.try_into() {
-                Ok(ObsOption::Goto) => select_goto(),
-                Ok(ObsOption::Open) => select_open(),
+            match selection {
+                Some(index) => match index.try_into() {
+                    Ok(ObsOption::Goto) => select_goto(),
+                    Ok(ObsOption::Open) => select_open(),
+                    _ => Ok(()),
+                },
                 _ => Ok(()),
-            },
-            _ => Ok(()),
+            }
         }
     }
 }

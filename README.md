@@ -18,6 +18,7 @@ obs() {
 
 ## TODO
 
+- [x] add clap and `-h`
 - [ ] add `obsidian-git` support
-- [ ] add clap and `-h`
+- [ ] improve error handling
 - [ ] improve this readme
