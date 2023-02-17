@@ -1,12 +1,12 @@
-use clap::{Arg, Command, Parser};
+use clap::Parser;
 
 #[derive(Parser, Debug)]
 #[clap(version, about)]
 pub struct ObsArg {
-    #[clap(short, long)]
+    #[clap(short, long, group = "action")]
     /// Goto vault directory   
-    goto: Option<String>,
-    #[clap(short, long)]
+    pub goto: Option<String>,
+    #[clap(short, long, group = "action")]
     /// Open vault in Obsidian
-    open: Option<String>,
+    pub open: Option<String>,
 }
