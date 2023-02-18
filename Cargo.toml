@@ -8,6 +8,7 @@ description = "A blazing fast & lightweight CLI tool for interacting with the Ob
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = "0.4.23"
 clap = { version = "4.1.6", features = ["derive"] }
 dialoguer = "0.10.3"
 eyre = "0.6.8"
