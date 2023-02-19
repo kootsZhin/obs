@@ -51,7 +51,7 @@ obs() {
 
 - [x] add clap and `-h`
 - [x] imporve `README`
-- [ ] add `obsidian-git` support
+- [x] add `obsidian-git` support
 - [ ] improve error handling
 
 ## License
