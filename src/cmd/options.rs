@@ -4,6 +4,7 @@ use std::fmt;
 pub enum ObsOption {
     Goto,
     Open,
+    Backup,
     // for entering selection mode
     Select,
 }
@@ -14,6 +15,8 @@ impl fmt::Display for ObsOption {
         match self {
             ObsOption::Goto => write!(f, "goto"),
             ObsOption::Open => write!(f, "open"),
+            ObsOption::Backup => write!(f, "backup"),
+
             ObsOption::Select => write!(f, "select"),
         }
     }
@@ -26,6 +29,7 @@ impl TryFrom<usize> for ObsOption {
         match v {
             x if x == ObsOption::Goto as usize => Ok(ObsOption::Goto),
             x if x == ObsOption::Open as usize => Ok(ObsOption::Open),
+            x if x == ObsOption::Backup as usize => Ok(ObsOption::Backup),
             _ => Err(()),
         }
     }
@@ -33,6 +37,10 @@ impl TryFrom<usize> for ObsOption {
 
 impl ObsOption {
     pub fn to_string_vec() -> Vec<String> {
-        vec![ObsOption::Goto.to_string(), ObsOption::Open.to_string()]
+        vec![
+            ObsOption::Goto.to_string(),
+            ObsOption::Open.to_string(),
+            ObsOption::Backup.to_string(),
+        ]
     }
 }

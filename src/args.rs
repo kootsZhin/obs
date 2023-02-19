@@ -11,6 +11,9 @@ pub struct ObsArg {
     #[clap(short, long, group = "action")]
     /// Open vault in Obsidian
     pub open: Option<String>,
+    #[clap(short, long, group = "action")]
+    /// Perform git add, commit & push
+    pub backup: Option<String>,
 }
 
 impl ObsArg {
