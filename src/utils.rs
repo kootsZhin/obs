@@ -1,4 +1,6 @@
 use dialoguer::{theme::ColorfulTheme, Select};
+use std::path::Path;
+
 use eyre::Result;
 use home::home_dir;
 use serde::Deserialize;
@@ -78,5 +80,9 @@ impl Vault {
         let res = vault_names[selection.unwrap()].clone();
 
         Ok(res)
+    }
+
+    pub fn is_valid_vault() -> bool {
+        Path::new("./.obsidian").is_dir()
     }
 }

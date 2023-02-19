@@ -5,7 +5,6 @@ pub enum ObsOption {
     Goto,
     Open,
     Backup,
-    Sync,
     // for entering selection mode
     Select,
 }
@@ -17,7 +16,6 @@ impl fmt::Display for ObsOption {
             ObsOption::Goto => write!(f, "goto"),
             ObsOption::Open => write!(f, "open"),
             ObsOption::Backup => write!(f, "backup"),
-            ObsOption::Sync => write!(f, "sync"),
 
             ObsOption::Select => write!(f, "select"),
         }
@@ -32,7 +30,6 @@ impl TryFrom<usize> for ObsOption {
             x if x == ObsOption::Goto as usize => Ok(ObsOption::Goto),
             x if x == ObsOption::Open as usize => Ok(ObsOption::Open),
             x if x == ObsOption::Backup as usize => Ok(ObsOption::Backup),
-            x if x == ObsOption::Sync as usize => Ok(ObsOption::Sync),
             _ => Err(()),
         }
     }
@@ -44,7 +41,6 @@ impl ObsOption {
             ObsOption::Goto.to_string(),
             ObsOption::Open.to_string(),
             ObsOption::Backup.to_string(),
-            ObsOption::Sync.to_string(),
         ]
     }
 }

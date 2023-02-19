@@ -4,6 +4,7 @@ use eyre::Result;
 
 use args::*;
 use cmd::*;
+use utils::*;
 
 pub mod args;
 pub mod cmd;
@@ -23,7 +24,6 @@ fn main() -> Result<()> {
         ObsOption::Goto => args_goto(args.goto.unwrap()),
         ObsOption::Open => args_open(args.open.unwrap()),
         ObsOption::Backup => backup(),
-        ObsOption::Sync => sync(),
         ObsOption::Select => {
             let obs_opt = ObsOption::to_string_vec();
 
@@ -38,7 +38,6 @@ fn main() -> Result<()> {
                     Ok(ObsOption::Goto) => select_goto(),
                     Ok(ObsOption::Open) => select_open(),
                     Ok(ObsOption::Backup) => backup(),
-                    Ok(ObsOption::Sync) => sync(),
                     _ => Ok(()),
                 },
                 _ => Ok(()),
