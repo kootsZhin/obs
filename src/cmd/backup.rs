@@ -20,11 +20,11 @@ pub fn backup() -> Result<()> {
 
     let commit_message = format!("-m vault backup: {commit_time}", commit_time = commit_time);
 
-    Command::new("git").args(&["add", "."]).spawn()?;
+    Command::new("git").args(&["add", "."]).output()?;
     Command::new("git")
         .args(&["commit", &commit_message.to_string()])
-        .spawn()?;
-    Command::new("git").arg("push").spawn()?;
+        .output()?;
+    Command::new("git").arg("push").output()?;
 
     Ok(())
 }

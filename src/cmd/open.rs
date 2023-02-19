@@ -15,6 +15,6 @@ pub fn args_open(vault_selected: String) -> Result<()> {
 
 fn _open(vault_selected: String) -> Result<()> {
     let obs_url = format!("obsidian://open?vault={vault}", vault = vault_selected);
-    Command::new("open").arg(obs_url).spawn()?;
+    Command::new("open").arg(obs_url).output()?;
     Ok(())
 }
