@@ -1,8 +1,6 @@
-use chrono::offset::Utc;
-use chrono::DateTime;
+use chrono::Local;
 use eyre::Result;
 use std::process::Command;
-use std::time::SystemTime;
 
 use crate::Vault;
 
@@ -14,9 +12,8 @@ pub fn backup() -> Result<()> {
         panic!("not in vault")
     }
 
-    let system_time = SystemTime::now();
-    let datetime: DateTime<Utc> = system_time.into();
-    let commit_time = datetime.format("%Y-%m-%d %T");
+    let system_time = Local::now();
+    let commit_time = system_time.format("%Y-%m-%d %T");
 
     let commit_message = format!("-m vault backup: {commit_time}", commit_time = commit_time);
 
