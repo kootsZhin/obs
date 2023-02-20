@@ -19,6 +19,9 @@
 ## Usage
 
 - `obs` : open up a menu for choosing actions and vault to interact with
+  - `goto` : goto vault
+  - `open` : open vault
+  - `backup` : backup vault
 - `obs --goto <GOTO>` : `cd` to the directory of vault `<GOTO>`
 - `obs --open <OPEN>` : open the vault `<OPEN>` in Obsidian
 - `obs --help` : show help
