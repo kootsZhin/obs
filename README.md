@@ -12,6 +12,13 @@
 
 - `obs` is under active development and currently only support MacOS, please report any issue while using!
 
+## Features
+
+- Fast & easy access to vaults from terminal in seconds
+- Backup your vault to remote git effortlessly
+- Flat learning curve without the need to memorize complciated commands
+- Automatically fetch vault list from Obsidian, no extra config needed
+
 <p align="center">
   <img src="assets/demo-1.gif" alt="animated" />
 </p>
