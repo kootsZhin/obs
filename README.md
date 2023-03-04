@@ -39,14 +39,13 @@
 
 ## Getting Started
 
-1. Clone this repo
-2. Install `obs`
+1. Install `obs`
 
 ```bash
-cargo install --path .
+cargo install obs
 ```
 
-3. Put this in your `.zshrc` (or equivalent)
+2. Put this in your `.zshrc` (or equivalent)
 
 ```bash
 obs() {
@@ -55,14 +54,7 @@ obs() {
 }
 ```
 
-4. `obs`
-
-## Roadmap
-
-- [x] add clap and `-h`
-- [x] imporve `README`
-- [x] add `obsidian-git` support
-- [ ] improve error handling
+3. Start using: `obs`!
 
 ## License
 
